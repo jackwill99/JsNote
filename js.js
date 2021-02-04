@@ -363,7 +363,7 @@ console.log(arr_fun)                 //! Overwrite or Change the Array
 console.log(arr_fun.indexOf(100))    //! Find the index of Array Value
 arr_fun.push("Hay")                  //! Adding at the end of Array
 console.log(arr_fun)
-arr_fun.unshift("Hay")               //! Adding at the beginning of Array
+arr_fun.unshift("Hay")          //! Adding at the beginning of Array
 console.log(arr_fun)
 arr_fun.pop("Hay")                   //! Pop out at the end of Array
 console.log(arr_fun)
@@ -528,7 +528,7 @@ click_me.addEventListener("dblclick", (e) => {
 let input1 = document.querySelector("#input1");
 let input2 = document.querySelector("#input2");
 click_me.addEventListener("click", (e)=> {
-    e.preventDefault();     //! This is prevent default values such as action link(google.com)
+    e.preventDefault();     //! This is prevent default values in Form such as action link(google.com)
     console.log(input1.value)
 });
 input1.addEventListener("blur", (e)=> {
@@ -619,7 +619,7 @@ let sesGetData = () =>{
 
 //? JS Constructor Function/Method
 /*
-!                let ConstructorName (object_property_variable) {
+!                function ConstructorName (object_property_variables) {
 !                    this.object_property = object_property_variable;
 !                    "this" is current constructor object or current object
 !                };
@@ -834,7 +834,7 @@ fetch(url)
     .then(res => {return res.text()})          //! res Response Json & Text ; you can look at this in prototype
                                                //! In also this case; res.text() also Response the promise type
     .then(result => console.log(result))       //! res & res.text() are Response promise type; So we change promise like this
-    .catch((err) => console.log("Failed to load"));
+    .catch(err => console.log("Failed to load"));
 
 
 //? Async Await Function
