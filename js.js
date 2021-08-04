@@ -43,6 +43,7 @@ let obj_user = {
   }, //! This is called Method
 };
 obj_user.user_name = "Tun Tun"; //! Change the object property value
+//! obj_user['user_name'] = 'Tun Tun';
 console.log("I'm studying " + obj_user.diploma[2]);
 console.log(obj_user.user_fun());
 
@@ -55,12 +56,12 @@ let t3 = {
 
 //? Control Flow
 /*
-! Control flow are => 
+! Control flow are =>
 ! if, if else, if else if else, switch (are also called conditional statement)
 ! for, for in , forEach, while, do while (are also called loop)
 */
 
-//! In JavaScript, 0 and null are only false. Remainings are true such as empty list, empty object
+//! In JavaScript, 0,undefined and null are only false. Remainings are true such as empty list, empty object
 
 let flow_age = 20;
 if (flow_age === 5) {
@@ -124,7 +125,7 @@ for (let i = 0; i < 10; i++) {
 }
 
 /*
-?While Looping 
+?While Looping
 let x = 5;      //! Initialization or Starting Point
 while (x <10){  //! Condition or Boolean Expression
     ...;
@@ -224,7 +225,7 @@ Todo: Notes for in, for of, forEach, map()
 ! for in => object ,array object, array, string / return index for string and key for object
 ! for of => Array, Only iterable object / return values in both arr and obj / It can also use DOM
 ! foreach=> Array, Only iterable object/ return values in both arr and obj / Can use non-array iterable eg.DOM List
-! map()  => Only Array and return array
+! map()  => Only Array and return new array
  */
 
 //?Different ways of looping Array of object
@@ -252,7 +253,10 @@ let map_arr = [
     address: "Bagan",
   },
 ];
-map_arr.map((user) => console.log(user));
+const m_ap = map_arr.map((user) => {
+  return user.name;
+});
+console.log(m_ap); //?Return a new array
 
 let find_index = map_arr.findIndex((user) => user.age === 20); //* Return index if u want index
 console.log(find_index);
@@ -386,10 +390,38 @@ console.log(some_test.every((v) => v > 5));
 console.log(some_test.some((v) => v > 5));
 
 //? Array Spreading
-//! Array spread don't reference to the original, So if you change sprTest, do not effect to the arr_spr
+//! Array spread don't reference to the original, So if you changed sprTest, do not effect to the arr_spr
 let arr_spr = ["aung", "ko", "su", "nu"];
 let arr_spr2 = ["dog", "cow", "franki", "sammy", "bukky"];
 let sprTest = [...arr_spr, "spreading", "good", ...arr_spr2];
+let spr_obj = [
+  {
+    name: "aung aung",
+    age: 20,
+    address: "Mandalay",
+  },
+  {
+    name: "su su",
+    age: 18,
+    address: "Taunggyi",
+  },
+];
+let spr_objTest = { ...spr_obj[1], name: "ko ko" };
+//* if spread the object, it spreads object properties and can modify object values
+
+//? Destructuring
+//! In array destructuring, first is index 0 and second is index 1 like that
+const destru = ['apple', 'orange', 'banana'];
+const [mytel, mpt] = destru;
+// Will be mytel = 'apple' and mpt = "orange"
+
+//! In object destructuring, use specific object property to destructure
+const dest = {
+  testDe: [1,2,3,4],
+  hayDE: {ishay: true}
+}
+const {hayDE} = dest;
+// console.log(hayDE.ishay)
 
 //? Date Object
 let now = new Date();
@@ -464,7 +496,7 @@ console.log(data_page);
 ! Difference between getElementsByClassName and querySelectorAll
 ! forEach canloop only in querySelectorAll
 ! Dynamically update DOM can access only in getElementsByClassName
-! If you want update with querySelectorAll, select the parent element as par and par.children.length 
+! If you want update with querySelectorAll, select the parent element as par and par.children.length
 */
 
 //? Travesting Nodes
@@ -556,6 +588,16 @@ input1.addEventListener("blur", (e) => {
 //? GetArrtibutes from HTML Element
 
 console.log(input1.id, input1.type, input1.autocomplete);
+
+//? Copy to Cliboard
+function copyToCliboard(hex) {
+  let tarea = document.createElement("textarea"); //* Create a textarea tag
+  tarea.value = hex.innerText; //* Set the value of textarea
+  document.body.appendChild(tarea); //* Set textarea tag to document
+  tarea.select(); //* textarea value select
+  document.execCommand("copy"); //* Now copy the selected value
+  document.body.removeChild(tarea); //* Remove the textarea
+}
 
 //? LocalStorage
 
@@ -853,7 +895,78 @@ let pro = new Promise((resolve, reject) => {
   xhr.send();
 });
 pro.then((data) => console.log(data)).catch((err) => console.log(err));
-//! If you return pro Constructor in a function ; you can call function_name().then .catch;
+
+//! Manually
+//? Cond runs one by one
+console.log("Start");
+
+//?moves to the WebAPIs and wait
+setTimeout(() => {
+  console.log("Now Doing Staff");
+}, 2000);
+//?moves to the mainScript()
+
+console.log("End");
+
+const loginUser = new Promise((resolve) => {
+  const name = "Ed";
+  console.log("now waiting for deciding");
+  setTimeout(() => {
+    resolve({ name });
+  }, 2000);
+});
+
+loginUser.then((user) => console.log(user));
+
+//? Promise Refactor
+
+function loginUser(email, password) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Now we have the data");
+      resolve({ email, password });
+    }, 3000);
+  });
+}
+
+function getUserVideos(email) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(["video1", email]);
+    }, 2000);
+  });
+}
+
+function videoDetails(video) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(`email of the video is ${video}`);
+    }, 2000);
+  });
+}
+
+loginUser("wailwinphyo@gmail.com", "fuckUBro")
+  .then((user) => getUserVideos(user.email)) //* user for resolve loginUser and pass parameter into next function
+  .then((video) => videoDetails(video[1])) //*video for resolve getUserVideos and pass parameter into next function
+  .then((detail) => console.log(detail)); //* detail for resolve videoDetails
+
+//? Promise All
+
+const yt = new Promise((resolve) => {
+  setTimeout(() => {
+    console.log("youtube staff is working");
+    resolve([1, 2, 3, 4]);
+  }, 2000);
+});
+
+const fb = new Promise((resolve) => {
+  setTimeout(() => {
+    console.log("fb staff is now and");
+    resolve({ user: "Name" });
+  }, 5000);
+});
+
+Promise.all([yt, fb]).then((result) => console.log(result));
 
 //? Fetch
 
