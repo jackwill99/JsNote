@@ -2,6 +2,8 @@
 
 # JavaScript Notes
 
+<p>Credit for all instructors and resources<p/>
+
 </div>
 
 <details><summary>Javascript Syntax</summary>
@@ -52,6 +54,7 @@
 # Javascript Statements
 
 `Js statements are composed of: Values, Operators, Expressions, Keywords and Comments.`
+
 - The statements is how executed the program on the `expression`.
 - eg. let vv = 1 + 2 (This is commended to add the result of sum from two values to the vv variable. This is also called statement.)
 
@@ -107,9 +110,16 @@ console.log("Replacing down : " + string_method.replaceAll("my", "our"));
 
 console.log(string_method);
 
+let str = "   testing javascript ";
+console.log(
+  "Triming is the removing the whiteSpace and tag from the beginning and ending. So the result is ",
+  str.trim()
+);
 
-var str =" Java & Java Server Side& JavaScript";
-console.log("Str ",str);
+console.log("spliting the string with t is ", str.trim().split("t"));
+
+var str = " Java & Java Server Side& JavaScript";
+console.log("Str ", str);
 console.log("startWith('java') ", str.trim().startsWith("Java"));
 console.log("endWith('Script) ", str.endsWith("Script"));
 console.log("includes('server) ", str.includes("Server"));
@@ -139,12 +149,7 @@ slugifyWithMutation(urlWithMutation); // i-will-be-a-url-slug
 
 const url = " I will be a url slug  ";
 
-const slugify = (url) => 
-  url
-    .toLowerCase()
-    .trim()
-    .split(" ")
-    .join("-");
+const slugify = (url) => url.toLowerCase().trim().split(" ").join("-");
 
 slugify(url); // i-will-be-a-url-slug
 ```
@@ -220,8 +225,8 @@ arr_fun.splice(2, 3);
 arr_fun.reverse();
 // Reverse the Array
 
-arr_fun.join(':');
-// joining array 
+arr_fun.join(":");
+// joining array
 
 // fill
 var ar = [1, 2, 3, 4];
@@ -452,16 +457,15 @@ let t3 = {
 ```javascript
 var obj = {};
 var something = {
-    age : 34,
+  age: 34,
 };
-console.log( "obj && something ==>", (obj && something));
+console.log("obj && something ==>", obj && something);
 
 var falsethy = 0;
-console.log("falethy && something ==>", (falsethy && something));
+console.log("falethy && something ==>", falsethy && something);
 
-console.log( "obj || something ==>", (obj || something));
-console.log( "falsethy || something ==>", (falsethy || something));
-
+console.log("obj || something ==>", obj || something);
+console.log("falsethy || something ==>", falsethy || something);
 
 // if on the left side of getName() is false, works on the right side.
 const name = getName() || "Lewis";
@@ -681,16 +685,19 @@ let map_arr = [
     name: "aung aung",
     age: 20,
     address: "Mandalay",
+    male: true,
   },
   {
     name: "su su",
     age: 18,
     address: "Taunggyi",
+    male: false,
   },
   {
     name: "mg mg",
     age: 19,
     address: "Yangon",
+    male: true,
   },
   {
     name: "tun tun",
@@ -699,9 +706,7 @@ let map_arr = [
   },
 ];
 
-const m_ap = map_arr.map((user) => {
-  return user.name;
-});
+const m_ap = map_arr.map((user) => user.name);
 console.log(m_ap); // Return a new array
 
 let index_of = in_arr.findIndex((user) => user === "su su");
@@ -710,6 +715,7 @@ let anoIndexOf = in_arr.indexOf("su su");
 
 let find_index = map_arr.findIndex((user) => user.age === 20);
 // Return single index and findIndex is higherOrder Function.  indexOf takes value to point out in array and string
+// If u don't define a variable in findIndex, it will return 'index and -1' | -1 is false;
 console.log(find_index);
 
 let find_method = map_arr.find((user) => user.age === 20); // Return single value
@@ -717,9 +723,18 @@ console.log(find_method);
 
 let filter_method = map_arr.filter((user) => user.age === 20);
 console.log(filter_method);
-// If u don't define a variable in findIndex, it will return 'index and -1' | -1 is false;
+// Here, map_arr is the iterable object and user is iterated value
+//! filter return new array with all values of this truthy iterated value
 
-// filter return new array with all found values
+// Informal style map and filter
+let filterInformal = map_arr.filter((user) => user.male);
+console.log(filterInformal);
+// That'll produce an array that contains only those user object whose "male" property is true (or truthy)
+// 'male' property of SuSu is flase and TunTun had no 'male' property means also flase. So it will return AungAung and MgMg that is truthy iterated value
+
+let filterInformal1 = map_arr.filter((user) => !user.male);
+console.log(filterInformal1);
+// That'll produce an array that contains only those user object whose "male" property is flase (or flasy)
 ```
 
 </p>
@@ -746,7 +761,7 @@ console.log(filter_method);
 
 ```js
 var a = 25; //memory location store with value 25
-console.log("Type of a ",typeof a);
+console.log("Type of a ", typeof a);
 ```
 
 - Reference Data Type are such as Object, Array, Function and store in heap memory`
@@ -755,8 +770,8 @@ console.log("Type of a ",typeof a);
 var a = 10;
 var b = 10;
 
-console.log("a==b ",a == b); // false
-console.log('a==a', a == a); // true because they are reference
+console.log("a==b ", a == b); // false
+console.log("a==a", a == a); // true because they are reference
 ```
 
 `All primitives are immutable, i.e., they cannot be altered... Eg. Using a string method doesn't mutate the string`
@@ -829,9 +844,9 @@ Number.isInteger(math_x);
 // check isInteger
 
 let n = 20;
-console.log("Binary ",n.toString(2));
-console.log("Octal ",n.toString(8));
-console.log("Hexa ",n.toString(16));
+console.log("Binary ", n.toString(2));
+console.log("Octal ", n.toString(8));
+console.log("Hexa ", n.toString(16));
 ```
 
 </p>
@@ -861,30 +876,25 @@ console.log(terna);
 <br>
 
 ```js
-function div(left,right) {
+function div(left, right) {
   console.log("Hello");
-  if( left == 0){
+  if (left == 0) {
     throw "Left operand is zero";
   }
-  return left/right;
+  return left / right;
 }
 
-try{
-  console.log(div(0,0));
+try {
+  console.log(div(0, 0));
   // console.log(div(10,20));
-}
-catch(e){
-  console.log('What up man ',e);
-}
-finally{
-    console.log("Finally Ever run");
+} catch (e) {
+  console.log("What up man ", e);
+} finally {
+  console.log("Finally Ever run");
 }
 
 console.log("End of code");
-
-
 ```
-
 
 </p>
 </details>
@@ -1185,7 +1195,7 @@ Higher-Order-Function
 
 ---
 
-
+## [See more functional programming lessons](https://github.com/jackwill99/javascriptFunctionalLessons)
 
 </p>
 </details>
